@@ -36,6 +36,14 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Dialog } from '@/components/dialog'
 import { PasswordInput } from '@/components/password-input'
 import { Turnstile } from '@/components/turnstile'
@@ -46,6 +54,7 @@ import { registerFormSchema } from '@/features/auth/constants'
 import { useAuthRedirect } from '@/features/auth/hooks/use-auth-redirect'
 import { useEmailVerification } from '@/features/auth/hooks/use-email-verification'
 import { useTurnstile } from '@/features/auth/hooks/use-turnstile'
+import { REGISTER_PURPOSE_OPTIONS } from '@/features/auth/purpose-options'
 import {
   getAffiliateCode,
   saveAffiliateCode,
@@ -88,6 +97,7 @@ export function SignUpForm({
     defaultValues: {
       username: '',
       email: '',
+      purpose: '',
       password: '',
       confirmPassword: '',
     },
@@ -159,6 +169,7 @@ export function SignUpForm({
       const res = await register({
         username: data.username,
         password: data.password,
+        purpose: data.purpose,
         email: data.email || undefined,
         verification_code: verificationCode || undefined,
         aff_code: getAffiliateCode(),
@@ -239,6 +250,43 @@ export function SignUpForm({
               <FormControl>
                 <Input placeholder={t('Enter your username')} {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Registration Purpose */}
+        <FormField
+          control={form.control}
+          name='purpose'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('Registration purpose')}</FormLabel>
+              <Select
+                items={REGISTER_PURPOSE_OPTIONS.map((option) => ({
+                  value: option.value,
+                  label: t(option.labelKey),
+                }))}
+                onValueChange={field.onChange}
+                value={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger className='w-full'>
+                    <SelectValue
+                      placeholder={t('Select registration purpose')}
+                    />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent alignItemWithTrigger={false}>
+                  <SelectGroup>
+                    {REGISTER_PURPOSE_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {t(option.labelKey)}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

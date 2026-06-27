@@ -20,6 +20,7 @@ import { api } from '@/lib/api'
 import type {
   FlowQuotaDataItem,
   QuotaDataItem,
+  RecommendedModel,
   UptimeGroupResult,
 } from './types'
 
@@ -80,6 +81,15 @@ export async function getFlowQuotaDates(
     data?: FlowQuotaDataItem[]
     message?: string
   }>(endpoint, { params })
+  return res.data
+}
+
+export async function getRecommendedModels() {
+  const res = await api.get<{
+    success: boolean
+    data?: RecommendedModel[]
+    message?: string
+  }>('/api/user/self/recommended-models')
   return res.data
 }
 

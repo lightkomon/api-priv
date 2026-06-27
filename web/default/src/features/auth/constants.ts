@@ -34,6 +34,7 @@ export const registerFormSchema = z
   .object({
     username: z.string().min(1, 'Please enter your username'),
     email: z.string().optional(),
+    purpose: z.string().min(1, 'Please select a registration purpose'),
     password: z
       .string()
       .min(1, 'Please enter your password')

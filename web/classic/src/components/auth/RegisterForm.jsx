@@ -80,6 +80,7 @@ const RegisterForm = () => {
     email: '',
     verification_code: '',
     wechat_verification_code: '',
+    purpose: '',
   });
   const { username, password, password2 } = inputs;
   const [userState, userDispatch] = useContext(UserContext);
@@ -216,6 +217,10 @@ const RegisterForm = () => {
   }
 
   async function handleSubmit(e) {
+    if (!inputs.purpose) {
+      showInfo(t('请选择注册用途'));
+      return;
+    }
     if (password.length < 8) {
       showInfo('密码长度不得小于 8 位！');
       return;
@@ -601,6 +606,20 @@ const RegisterForm = () => {
                   onChange={(value) => handleChange('password2', value)}
                   prefix={<IconLock />}
                 />
+
+                <Form.Select
+                  field='purpose'
+                  label={t('注册用途')}
+                  placeholder={t('请选择注册用途')}
+                  value={inputs.purpose}
+                  onChange={(value) => handleChange('purpose', value)}
+                >
+                  <Form.Select.Option value='自媒体'>
+                    {t('自媒体')}
+                  </Form.Select.Option>
+                  <Form.Select.Option value='电商'>{t('电商')}</Form.Select.Option>
+                  <Form.Select.Option value='开发'>{t('开发')}</Form.Select.Option>
+                </Form.Select>
 
                 {showEmailVerification && (
                   <>

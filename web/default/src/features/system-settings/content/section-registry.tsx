@@ -24,6 +24,7 @@ import { ChatSettingsSection } from './chat-settings-section'
 import { DashboardSection } from './dashboard-section'
 import { DrawingSettingsSection } from './drawing-settings-section'
 import { FAQSection } from './faq-section'
+import { GroupModelRecommendationsSection } from './group-model-recommendations-section'
 import { UptimeKumaSection } from './uptime-kuma-section'
 
 /**
@@ -90,6 +91,15 @@ const CONTENT_SECTIONS = [
       <UptimeKumaSection
         enabled={settings['console_setting.uptime_kuma_enabled']}
         data={settings['console_setting.uptime_kuma_groups']}
+      />
+    ),
+  },
+  {
+    id: 'group-model-recommendations',
+    titleKey: 'Group Model Recommendations',
+    build: (settings: ContentSettings) => (
+      <GroupModelRecommendationsSection
+        data={settings['group_model_recommendation.models']}
       />
     ),
   },

@@ -184,6 +184,7 @@ export type ContentSettings = {
   MjForwardUrlEnabled: boolean
   MjModeClearEnabled: boolean
   MjActionCheckSuccessEnabled: boolean
+  'group_model_recommendation.models': string
 }
 
 export type ModelSettings = {

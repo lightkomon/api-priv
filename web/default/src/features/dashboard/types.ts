@@ -181,6 +181,17 @@ export interface UptimeGroupResult {
 }
 
 // ============================================================================
+// Recommended Models Types
+// ============================================================================
+
+export interface RecommendedModel {
+  model_name: string
+  description?: string
+  icon?: string
+  vendor_name?: string
+}
+
+// ============================================================================
 // Dashboard Filter Types
 // ============================================================================
 
